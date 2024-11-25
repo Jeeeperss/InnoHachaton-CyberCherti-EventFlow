@@ -1,0 +1,47 @@
+body { font-family: Arial, sans-serif; background-color: #300051}
+form {
+  
+}
+.form-window { 
+  width: 270px;
+  height: 250px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -125px 0 0 -125px;
+  background-color: #333;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.animate-menu{
+  width: 200%;
+  height: 100%;
+  display: flex;
+  #justify-content: space-between;
+}
+.form-container {
+  width: 40%;
+  height: 80%;
+  margin-top: 5%;
+  margin-left: 5%;
+  background-color: #ffffff;
+  border-radius: 8px;
+}
+
+@keyframes toRegister {
+  0% {
+      transform: translateX(0%);
+  }
+  100% {
+      transform: translateX(-45%);
+  }
+}
+
+@keyframes toLogin {
+  0% {
+      transform: translateX(-45%);
+  }
+  100% {
+      transform: translateX(0%);
+  }
+}
