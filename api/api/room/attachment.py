@@ -1,22 +1,25 @@
+import os
+
 from fastapi import APIRouter, Depends
 from fastapi.security import HTTPBearer
 from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import UploadFile, File as UploadFileType
-import os
 from api.authentication.fastapi_users import current_active_user
+from fastapi.responses import FileResponse
 
 from core.authentication.models.user import User
-from core.room.tools.attachment_db import save_file_metadata
+from core.room.tools.attachment_db import save_file_metadata, get_all_attachments_of_room, get_attachment_by_id
 from core.db.worker.worker import db_worker
+from core.room.schemas.attachment import AttachmentBase
 
 router = APIRouter(
-    prefix="/room",
-    tags=["Room"],
+    prefix="/attachment",
+    tags=["Attachment"],
     dependencies=[Depends(HTTPBearer(auto_error=False))]
 )
 
-@router.post("/rooms/{room_id}/upload")
-async def upload_file(
+@router.post("/{room_id}/upload")
+async def upload_attachment(
     room_id: int,
     file: UploadFile,
     user: User = Depends(current_active_user),
@@ -42,3 +45,28 @@ async def upload_file(
     )
 
     return {"message": "Файл успешно загружен.", "file_id": saved_file.id}
+
+
+
+@router.get("/{room_id}/all", response_model=list[AttachmentBase])
+async def all_attachment(
+    room_id: int,
+    session: AsyncSession = Depends(db_worker.session_getter)
+): 
+    attachments = await get_all_attachments_of_room(session=session, room_id=room_id)
+    return attachments
+
+@router.get("/download/{attachment_id}", response_class=FileResponse)
+async def download_attachment(
+    attachment_id: int,
+    session: AsyncSession = Depends(db_worker.session_getter)
+):
+    # Получаем вложение из базы данных
+    attachment = await get_attachment_by_id(session, attachment_id)
+
+    # Путь к файлу, который мы вернем пользователю для скачивания
+    return FileResponse(
+        path=attachment.path,  # путь на сервере
+        filename=attachment.filename,  # имя файла, которое будет использоваться при скачивании
+        media_type="application/octet-stream"  # тип содержимого для бинарных файлов
+    )

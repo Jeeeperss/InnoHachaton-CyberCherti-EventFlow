@@ -4,13 +4,15 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from api.authentication.fastapi_users import current_active_user
 
-from core.room.tools.room_db import add_room, get_room_members, add_user_to_room, leave_room
+from core.room.tools.room_db import add_room, get_all_rooms
 from core.authentication.models.user import User
-from core.authentication.schemas.user import UserRead
 
 from core.db.worker.worker import db_worker
-
 from formatters.time_getter import parse_opening_time
+from core.room.schemas.room import RoomBase
+
+from .attachment import router as router_attachment
+from .members import router as router_members
 
 router = APIRouter(
     prefix="/room",
@@ -32,29 +34,10 @@ async def create_room(
         password=password)
     return new_room
 
-
-@router.get("/{room_id}",  response_model=list[UserRead])
-async def get_members(
-    room_id: int,
+@router.get("/", response_model=list[RoomBase])
+async def all_rooms(
     session: AsyncSession = Depends(db_worker.session_getter)
 ):
-    members = await get_room_members(session=session, room_id=room_id)
-    return members
+    all_rooms = await get_all_rooms(session)
+    return all_rooms
 
-@router.post("/enter/{room_id}")
-async def user_to_room(
-    room_id: int,
-    user: User = Depends(current_active_user),
-    session: AsyncSession = Depends(db_worker.session_getter)
-):
-    await add_user_to_room(session=session, user_id=user.id, room_id=room_id)
-    return {"message": f"Пользователь успешно добавлен в комнату {room_id}."}
-
-@router.delete("/leave/{room_id}")
-async def leave_room_route(
-    room_id: int,
-    user: User = Depends(current_active_user),
-    session: AsyncSession = Depends(db_worker.session_getter)
-):
-    await leave_room(session=session, user_id=user.id, room_id=room_id)
-    return {"detail": f"Пользователь с ID {user.id} успешно вышел из комнаты {room_id}."}

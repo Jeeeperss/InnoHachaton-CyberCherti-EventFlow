@@ -1,8 +1,8 @@
 """Create database
 
-Revision ID: 8f6b5ac09169
+Revision ID: b46d8fae9bfe
 Revises: 
-Create Date: 2024-11-25 20:36:25.913576
+Create Date: 2024-11-26 01:12:30.567403
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '8f6b5ac09169'
+revision: str = 'b46d8fae9bfe'
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -48,9 +48,12 @@ def upgrade() -> None:
     op.create_table('attachment',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('filename', sa.String(), nullable=False),
-    sa.Column('file_url', sa.String(), nullable=False),
+    sa.Column('path', sa.String(), nullable=False),
+    sa.Column('size', sa.Integer(), nullable=False),
     sa.Column('room_id', sa.Integer(), nullable=False),
+    sa.Column('uploaded_by', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['room_id'], ['room.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['uploaded_by'], ['user.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('room_user_association',

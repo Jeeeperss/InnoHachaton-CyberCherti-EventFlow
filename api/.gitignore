@@ -135,5 +135,5 @@ cython_debug/
 # Work directory
 uploads
 
-#JS settoings
+# JS Settings
 html/settings.js
