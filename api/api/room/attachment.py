@@ -18,7 +18,7 @@ router = APIRouter(
     dependencies=[Depends(HTTPBearer(auto_error=False))]
 )
 
-@router.post("/{room_id}/upload")
+@router.post("/upload/{room_id}")
 async def upload_attachment(
     room_id: int,
     file: UploadFile,
@@ -48,7 +48,7 @@ async def upload_attachment(
 
 
 
-@router.get("/{room_id}/all", response_model=list[AttachmentBase])
+@router.get("/all/{room_id}", response_model=list[AttachmentBase])
 async def all_attachment(
     room_id: int,
     session: AsyncSession = Depends(db_worker.session_getter)
