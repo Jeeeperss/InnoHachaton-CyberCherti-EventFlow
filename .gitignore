@@ -135,8 +135,16 @@ cython_debug/
 # Work directory
 uploads
 
+<<<<<<< Updated upstream
 #JS settings
 html/settings.js
 
 # Server api service
 api/service/
+=======
+#JS settoings
+html/settings.js
+
+#CORS origins
+allowed_origins.py
+>>>>>>> Stashed changes

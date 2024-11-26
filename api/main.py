@@ -5,22 +5,15 @@ from api.authentication.routers.users import router as router_user
 from api.room.room import router as router_room
 from api.room.attachment import router as router_attachment
 from api.room.members import router as router_members
+from allowed_origins import origins
 
 # Создаем экземпляр FastAPI
 app = FastAPI()
 
-# Определяем разрешенные источники для CORS
-origins = [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-    "http://localhost",
-    "http://127.0.0.1"
-]
-
 # Добавляем middleware для обработки CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,  # Разрешенные источники
+    allow_origins=origins.allowed_origins,  # Разрешенные источники
     allow_credentials=True,   # Разрешить отправку учетных данных
     allow_methods=["*"],      # Разрешить все HTTP-методы
     allow_headers=["*"],      # Разрешить все заголовки
