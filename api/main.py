@@ -5,8 +5,6 @@ from api.authentication.routers.users import router as router_user
 from api.room.room import router as router_room
 from api.room.attachment import router as router_attachment
 from api.room.members import router as router_members
-from api.room.actions import router as router_actions
-
 from allowed_origins import origins
 
 # Создаем экземпляр FastAPI
@@ -26,4 +24,3 @@ app.include_router(router_user)
 app.include_router(router_room)
 app.include_router(router_attachment)
 app.include_router(router_members)
-app.include_router(router_actions)

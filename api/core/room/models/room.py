@@ -6,11 +6,9 @@ from .attachment import Attachment
 from sqlalchemy.orm import (
     Mapped,
     mapped_column,
-    relationship,
-    validates
+    relationship
 )
 
-from .roles import RoleEnum
 
 class Room(Base):
     __tablename__ = "room" 
@@ -33,12 +31,7 @@ class Room(Base):
 
 
 class RoomUserAssociation(Base):
-    __tablename__ = "room_user_association"
-
-    role: Mapped[RoleEnum] = mapped_column(
-        nullable=False,
-        default=RoleEnum.MEMBER
-    )
+    __tablename__ = "room_user_association"  # Обязательно указываем имя таблицы
 
     user_id: Mapped[int] = mapped_column(
         ForeignKey("user.id", ondelete="CASCADE"), 
@@ -50,8 +43,3 @@ class RoomUserAssociation(Base):
         primary_key=True, 
     )
 
-    @validates("role")
-    def validate_role(self, key, value):
-        if value not in RoleEnum.__members__.values():
-            raise ValueError(f"Некорректная роль: {value}")
-        return value
