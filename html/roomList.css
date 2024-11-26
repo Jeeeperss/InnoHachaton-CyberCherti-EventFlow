@@ -1,0 +1,23 @@
+.roomList{
+  background-color: #aaaaaa;
+}
+
+.room{
+  display: flex;
+}
+
+.roomId{
+  color: red;
+}
+
+.roomTime{
+
+}
+
+.roomStatus{
+
+}
+
+.roomType{
+
+}

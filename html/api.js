@@ -1,3 +1,4 @@
+//AUTH
 export async function login(email, password) {
   const settings = await import("./settings.js")
   const response = await fetch(`${settings.api_server}/auth/login`, {
@@ -39,3 +40,17 @@ export async function register(email, password) {
 export function getToken(){
   return(localStorage.getItem('access_token'));
 }
+
+//ROOM
+export async function createRoom(params) {
+  
+}
+
+export async function getRooms() {
+  const settings = await import("./settings.js")
+  const response = await fetch(`${settings.api_server}/room`, {
+    method: 'GET'
+  });
+  return(await response.json());
+} 
+
