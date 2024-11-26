@@ -44,3 +44,14 @@ import("./settings.js").then((settings) => {
 }).catch(error => {
     console.error("Import ERROR:", error);
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const textBoxes = document.querySelectorAll('.text-box');
+  
+  textBoxes.forEach((box, index) => {
+      setTimeout(() => {
+          box.style.transform = 'translateY(-50%) translateX(-10px)'; 
+          box.style.opacity = '1'; 
+      }, index * 1500); 
+  });
+});

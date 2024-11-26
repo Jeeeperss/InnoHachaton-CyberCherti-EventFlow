@@ -1,15 +1,19 @@
-body { font-family: Arial, sans-serif; background-color: #300051}
+body { font-family: Arial, sans-serif; background-color: #303641;
+	background-image: 
+		linear-gradient(135deg, rgba(0,0,0, 0.2) 0%, rgba(0,0,0, 0.1) 25%, rgba(0,0,0, 0.2) 50%, rgba(0,0,0, 0.1) 75%, rgba(0,0,0, 0.2) 100%), 
+		linear-gradient(90deg, #192129, #303641, #484e57);
+	background-size: 8px 8px, 100%;}
 form {
   
 }
 .form-window { 
-  width: 270px;
-  height: 250px;
+  width: 300px;
+  height: 350px;
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 45%;
+  left: 45%;
   margin: -125px 0 0 -125px;
-  background-color: #333;
+  background-color: none;
   border-radius: 8px;
   overflow: hidden;
 }
@@ -17,15 +21,125 @@ form {
   width: 200%;
   height: 100%;
   display: flex;
-  #justify-content: space-between;
+  justify-content: space-between;
 }
 .form-container {
-  width: 40%;
-  height: 80%;
-  margin-top: 5%;
-  margin-left: 5%;
-  background-color: #ffffff;
-  border-radius: 8px;
+  width: 70%;
+  height: 95%;
+  margin-top: 2%;
+  margin-left: 2%;
+  margin-bottom: 2%;
+  margin-right: 2%;
+  background: linear-gradient(135deg, #e0e0e0, #9e9e9e);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  border-radius: 15px;
+  transition: all 0.3s ease-in-out;
+}
+
+.vibehub-logo {
+  margin: 70px 195px;
+  font-size: 5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.1rem;
+}
+
+.vibehub-logo .vibe {
+  color: white;
+}
+
+.vibehub-logo .hub {
+  background-color: #f90; /* Оранжевый фон */
+  color: black; /* Черный текст */
+  padding: 0 10px;
+  border-radius: 4px;
+}
+
+
+button.primary {
+  width: 50%;
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button.primary:hover {
+  background-color: #0056b3; 
+}
+
+button.secondary {
+  width: 100px; 
+  padding: -20px 12px;
+  margin-top: 10px;
+  background-color: transparent;
+  color: #007bff;
+  border:  none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: underline; 
+  font-size: 14px;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+button.secondary:hover {
+  color: #0056b3; 
+  border-color: #0056b3; 
+}
+
+
+.speakers-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* Прижимаем элементы к правому краю */
+  gap: 40px; /* Увеличенное расстояние между элементами */
+  margin-right: 600px; /* Отступ от правого края */
+  margin-top: -30px;
+  transform: translateY(-25%); /* Перемещаем весь блок вверх к центру */
+}
+
+.item {
+  position: relative;
+  width: 100px;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.item img {
+  width: 200px;
+  height: auto;
+  display: block;
+}
+
+.text-box {
+  position: absolute;
+  top: 70%; /* Подняли текст выше центра */
+  left: 180%; /* Начальная позиция за пределами правого края элемента */
+  transform: translateY(-50%);
+  background-color: #f90;
+  color: black;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  white-space: nowrap;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transition: transform 1s ease, opacity 1s ease;
+}
+
+.item:hover .text-box {
+  transform: translateY(-50%) translateX(-10px); /* Выезжает вправо */
+  opacity: 1;
 }
 
 @keyframes toRegister {
@@ -45,3 +159,5 @@ form {
       transform: translateX(0%);
   }
 }
+
+

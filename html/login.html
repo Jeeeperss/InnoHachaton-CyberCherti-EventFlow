@@ -2,35 +2,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>VibeHub</title>
     <link href="login.css" rel="stylesheet">
     <script src="login.js" defer></script>
 </head>
 <body>
+  <h1 class="vibehub-logo">
+    <span class="vibe">Vibe</span><span class="hub">Hub</span>
+</h1>
+<div class="speakers-container">
+  <div class="item">
+      <img src="speaker.png" alt="Speaker">
+      <div class="text-box">We have a voice chat, talk to each other, have fun and make friends!</div>
+  </div>
+  <div class="item">
+      <img src="message.png" alt="Message">
+      <div class="text-box">Are you shy to speak or have problems with your microphone?<br>No problem! We have a messenger for exchanging messages.</div>
+  </div>
+  <div class="item">
+      <img src="camera.png" alt="Camera">
+      <div class="text-box">Are you separated by distance? Do you need to hold a conference?<br>We have video chat, you can see each other even if you are on <br>different sides of the Earth.</div>
+  </div>
+  <div class="item">
+      <img src="file.png" alt="File">
+      <div class="text-box">Are you a programmer, or just a student?<br> Or do you just need to transfer files to each other?<br>With the file sharing feature you can do it!</div>
+  </div>
   <div class="form-window" align="center">
     <div class="animate-menu" id="animateMenu">  
       <div class="form-container">
         <form id="loginForm">
+          <h2>Log in</h2>
           <br>
           <input type="text" name="email" placeholder="E-mail" required>
           <br><br>
           <input type="password" name="password" placeholder="Password" required>
           <br><br>
-          <button type="button" onclick="toRegister()">To Register</button>
-          <button type="submit">Login</button>
+          <button type="submit" class="primary">Login</button>
+          <br><br><br>
+          <button type="button" class="secondary" onclick="toRegister()">To Register</button>
+          
         </form>
       </div>
       <div class="form-container" style="">
         <form id="registrationForm">
+          <h2>Registration Form</h2>
           <br>
           <input type="text" name="email" placeholder="E-mail" required>
           <br><br>
           <input type="password" name="password" placeholder="Password" required>
           <br><br>
           <input type="password" name="retypePassword" placeholder="Retype Password" required>
+          <br>
+          <button type="submit" class="primary">Register</button>
           <br><br>
-          <button type="button" onclick="toLogin()">To Login</button>
-          <button type="submit">Register</button>
+          <button type="button" class="secondary" onclick="toLogin()">To Login</button>
         </form>
       </div>
     <div>
