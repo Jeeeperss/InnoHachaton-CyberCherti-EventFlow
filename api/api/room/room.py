@@ -26,7 +26,7 @@ async def create(
     user: User = Depends(current_active_user),
     session: AsyncSession = Depends(db_worker.session_getter)
 ):
-    new_room = await add_room(
+    new_room = await create_room(
         session=session, 
         user_id = user.id, 
         opening_time = parse_opening_time(opening_time), 
