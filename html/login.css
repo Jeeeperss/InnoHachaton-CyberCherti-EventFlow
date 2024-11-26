@@ -7,12 +7,12 @@ form {
   
 }
 .form-window { 
-  width: 300px;
+  width: 270px;
   height: 350px;
   position: absolute;
-  top: 45%;
-  left: 45%;
-  margin: -125px 0 0 -125px;
+  top: 50%;
+  left: 66%;
+  margin: -125px 0 0 -105px;
   background-color: none;
   border-radius: 8px;
   overflow: hidden;
@@ -24,12 +24,12 @@ form {
   justify-content: space-between;
 }
 .form-container {
-  width: 70%;
+  width: 45%;
   height: 95%;
   margin-top: 2%;
-  margin-left: 2%;
+  margin-left: 0%;
   margin-bottom: 2%;
-  margin-right: 2%;
+  margin-right: 1%;
   background: linear-gradient(135deg, #e0e0e0, #9e9e9e);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
@@ -38,7 +38,9 @@ form {
 }
 
 .vibehub-logo {
-  margin: 70px 195px;
+  position: relative;
+  top: 10%;
+  left: 14%;
   font-size: 5rem;
   font-weight: bold;
   text-transform: uppercase;
@@ -99,9 +101,10 @@ button.secondary:hover {
   display: flex;
   flex-direction: column;
   align-items: flex-end; /* Прижимаем элементы к правому краю */
-  gap: 40px; /* Увеличенное расстояние между элементами */
-  margin-right: 600px; /* Отступ от правого края */
-  margin-top: -30px;
+  gap: 10px; /* Увеличенное расстояние между элементами */
+  position: relative;
+  top: 8%;
+  left: -40%;
   transform: translateY(-25%); /* Перемещаем весь блок вверх к центру */
 }
 
@@ -115,15 +118,15 @@ button.secondary:hover {
 }
 
 .item img {
-  width: 200px;
+  width: 150px;
   height: auto;
   display: block;
 }
 
 .text-box {
   position: absolute;
-  top: 70%; /* Подняли текст выше центра */
-  left: 180%; /* Начальная позиция за пределами правого края элемента */
+  top: 50%; /* Подняли текст выше центра */
+  left: 140%; /* Начальная позиция за пределами правого края элемента */
   transform: translateY(-50%);
   background-color: #f90;
   color: black;
