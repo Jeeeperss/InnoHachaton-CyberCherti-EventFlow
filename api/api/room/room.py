@@ -9,7 +9,6 @@ from core.authentication.models.user import User
 
 from core.db.worker.worker import db_worker
 from formatters.time_getter import parse_opening_time
-from core.room.schemas.room import RoomBase
 
 from .attachment import router as router_attachment
 from .members import router as router_members
@@ -31,10 +30,11 @@ async def create_room(
         session=session, 
         user_id = user.id, 
         opening_time = parse_opening_time(opening_time), 
-        password=password)
+        password=password
+    )
     return new_room
 
-@router.get("/", response_model=list[RoomBase])
+@router.get("/")
 async def all_rooms(
     session: AsyncSession = Depends(db_worker.session_getter)
 ):

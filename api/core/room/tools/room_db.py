@@ -5,6 +5,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from core.room.models.room import Room
 from datetime import datetime
 from .members_db import add_user_to_room
+from core.room.schemas.room import RoomBase
 
 async def add_room(
     session: AsyncSession, 
@@ -40,4 +41,16 @@ async def get_all_rooms(
 ) -> list[Room]:
     result = await session.execute(select(Room))
     rooms = result.scalars().all()
-    return rooms
+
+    # Заменяем наличие пароля на булевое значение True/False
+    rooms_with_private_status = [
+        RoomBase(
+            id=room.id,
+            is_active=room.is_active,
+            opening_time=room.opening_time,
+            private=bool(room.password)  # Устанавливаем private в зависимости от наличия пароля
+        )
+        for room in rooms
+    ]
+
+    return rooms_with_private_status

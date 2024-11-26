@@ -5,3 +5,4 @@ class RoomBase(BaseModel):
     id: int
     is_active: bool
     opening_time: datetime
+    private: bool
