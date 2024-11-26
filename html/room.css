@@ -1,0 +1,92 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #f0f0f0;
+}
+
+.table {
+  position: relative;
+  width: 290px;
+  height: 290px;
+  border-radius: 50%;
+  background-color: #8fbc8f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.person {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background-color: #ff6347;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: bold;
+  transition: transform 1s ease-in-out;
+}
+
+/* Анимация для движения к шкафу */
+@keyframes moveToCords {
+  0% {
+      transform: rotate(var(--initial-angle)) translateX(150px) rotate(var(--initial-angle-reverse));
+  }
+  10% {
+      transform: rotate(var(--initial-angle)) translateX(250px) rotate(var(--initial-angle-reverse));
+  }
+  40% {
+      transform: rotate(var(--destination-angle)) translateX(250px) rotate(var(--destination-angle-reverse));
+  }
+  50% {
+      transform: rotate(var(--destination-angle)) translateX(var(--destination-radius)) rotate(var(--destination-angle-reverse));
+  }
+  60% {
+      transform: rotate(var(--destination-angle)) translateX(250px) rotate(var(--destination-angle-reverse));
+  }
+  90% {
+      transform: rotate(var(--initial-angle)) translateX(250px) rotate(var(--initial-angle-reverse));
+  }
+  100% {
+      transform: rotate(var(--initial-angle)) translateX(150px) rotate(var(--initial-angle-reverse));
+  }
+}
+
+.wardrobe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-500px, -50%);
+  width: 100px;
+  height: 100px;
+  background-color: #deb887;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: bold;
+}
+
+.person.moving + .wardrobe {
+  display: flex; /* Показываем шкаф, когда человек движется */
+}
+
+button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+} 
