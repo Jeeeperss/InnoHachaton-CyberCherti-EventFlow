@@ -7,3 +7,40 @@ function toLogin() {
 function toRegister() {
   animateMenu.style.animation = `toRegister 2s forwards`;  
 }
+
+import("./settings.js").then((settings) => {
+  const registrationForm = document.getElementById('registrationForm')
+  registrationForm.addEventListener('submit', async function(event) {
+    event.preventDefault();
+    const formData = new FormData(this);
+    if (registrationForm.password.value === registrationForm.retypePassword.value){
+      const response = await fetch(`${settings.api_server}/auth/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: registrationForm.email.value,
+          password: registrationForm.password.value
+        })
+      });
+      const result = await response.json();
+      console.log(result)
+
+      if(result.detail == undefined){
+        alert(`Registration Successfully\n${result.email}`);
+        toLogin();
+      } else
+      if (result.detail === 'REGISTER_USER_ALREADY_EXISTS'){
+        alert('Register user already exists!')
+      } else {
+        alert(result.detail[0].msg)
+      }
+
+    } else {
+      alert("Passwords do not match")
+    }
+});
+}).catch(error => {
+    console.error("Import ERROR:", error);
+});
