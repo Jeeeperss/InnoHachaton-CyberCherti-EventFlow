@@ -137,3 +137,6 @@ uploads
 
 #JS settings
 html/settings.js
+
+# Server api service
+api/service/
