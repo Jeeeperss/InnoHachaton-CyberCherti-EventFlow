@@ -12,13 +12,12 @@ function toRegister() {
 
 loginForm.addEventListener('submit', async function(event) {
   event.preventDefault();
-  const api = await import("./api.js")
+  const api = await import("../modules/api.js")
   const result = await api.login(loginForm.email.value, loginForm.password.value)
-  console.log(result)
 
   if(result.detail == undefined){
     localStorage.setItem('access_token', result.access_token);
-    window.location.href = 'roomList.html';
+    window.location.href = '../list/roomList.html';
   } else
   if (result.detail === 'LOGIN_BAD_CREDENTIALS'){
     alert('Incorrect login or password!')
@@ -31,9 +30,8 @@ loginForm.addEventListener('submit', async function(event) {
 registrationForm.addEventListener('submit', async function(event) {
   event.preventDefault();
   if (registrationForm.password.value === registrationForm.retypePassword.value){
-    const api = await import("./api.js")
+    const api = await import("../modules/api.js")
     const result = api.register(registrationForm.email.value, registrationForm.password.value)
-    console.log(result)
 
     if(result.detail == undefined){
       alert(`Registration Successfully\n${result.email}`);

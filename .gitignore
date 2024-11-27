@@ -143,7 +143,7 @@ html/settings.js
 api/service/
 =======
 #JS settoings
-html/settings.js
+html/modules/settings.js
 
 #CORS origins
 allowed_origins.py
