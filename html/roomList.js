@@ -17,32 +17,78 @@ async function logout(){
   window.location.href = 'login.html'
 }
 
-let Rooms = []
+async function createRoom(password, opening_time) {
+  const api = await import("./api.js")
+  try{
+    const token = await api.getToken()
+    const result = await api.logout(token, password, opening_time)
+    
+    console.log(result)
+    if(result.ok){
+      //переход в комнату
+      updateRooms()
+    }
+    else {
+      alert(`Request error:\n${result.statusText}`)
+    }
+  }
+  catch (e) {
+    alert(`Error creation rooms:\n${e}`)
+  }
+}
 
-async function updateRooms() {
-  /*const api = await import("./api.js")
-  Rooms = await api.getRooms()*/
+async function deleteRoom (room_id){
+  const api = await import("./api.js")
+  const token = await api.getToken()
+  const result = await api.deleteRoom(token, room_id)
+  console.log(result)
+}
+
+async function getToken (){
+  const api = await import("./api.js")
+  const token = await api.getToken()
+  return(token)
+}
+
+async function getRooms() {
+  const api = await import("./api.js")
+  try{
+    Rooms = await api.getRooms()
+    return(Rooms)
+  }
+  catch (e) {
+    alert(`Error getting rooms:\n${e}`)
+    return([])
+  }
+}
+
+async function updateRooms() { 
+  let Rooms = await getRooms() 
   Rooms.push({
     //temp example
     "id":0,
+    "is_active": true,
     "opening_time": "2024-11-26 14:15",
-    "is_active": true
+    "private": false
   })
   Rooms.push({
     //temp example
     "id":0,
+    "is_active": true,
     "opening_time": "2024-11-26 14:15",
-    "is_active": true
+    "private": false
   })
   Rooms.push({
     "id":0,
+    "is_active": false,
     "opening_time": "2024-11-26 14:15",
-    "is_active": false
+    "private": false
   })
   Rooms.push({
     "id":0,
+    "is_active": false,
     "opening_time": "2024-11-26 14:15",
-    "is_active": false
+    "private": true
   })
 
   Rooms.forEach(room => {

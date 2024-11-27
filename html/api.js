@@ -42,8 +42,20 @@ export function getToken(){
 }
 
 //ROOM
-export async function createRoom(params) {
-  
+export async function createRoom(token, password, opening_time) {
+  const settings = await import("./settings.js")
+  const response = await fetch(`${settings.api_server}/room`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify({
+      password: password,
+      opening_time: opening_time
+    })
+  });
+  return(await response.json());
 }
 
 export async function getRooms() {
@@ -54,3 +66,13 @@ export async function getRooms() {
   return(await response.json());
 } 
 
+export async function deleteRoom(token, room_id) {
+  const settings = await import("./settings.js")
+  const response = await fetch(`${settings.api_server}/room/?room_id=${room_id}`, {
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  });
+  return(await response.json());
+}
