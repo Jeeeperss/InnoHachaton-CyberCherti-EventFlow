@@ -69,7 +69,7 @@ async function updateRooms() {
     "id":0,
     "is_active": true,
     "opening_time": "2024-11-26 14:15",
-    "private": false
+    "private": true
   })
   Rooms.push({
     //temp example

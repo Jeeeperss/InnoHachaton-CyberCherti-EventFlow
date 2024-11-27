@@ -17,7 +17,7 @@ body { font-family: Arial, sans-serif; background-color: #303641;
     background: #1a1f28; 
     border-top-left-radius: 60px; 
     border-top-right-radius: 60px;
-    clip-path: polygon(35% 5%, 65% 5%, 100% 100%, 0% 100%);
+    clip-path: polygon(35% 0%, 65% 0%, 100% 100%, 0% 100%);
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
 }
 
@@ -47,7 +47,7 @@ body { font-family: Arial, sans-serif; background-color: #303641;
 .dropdown {
   justify-content: center;
   position: absolute;
-  top: 22%; 
+  top: 21%; 
   left: 44%;
   transform: translateY(-50%);
   text-align: center;
@@ -71,7 +71,7 @@ body { font-family: Arial, sans-serif; background-color: #303641;
 .dropdown-menu {
   display: none;
   position: absolute;
-  top: 100%; /* Появляется под кнопкой */
+  top: 100%; 
   left: 50%;
   transform: translateX(-50%);
   background-color: #1a1f28;
@@ -108,18 +108,18 @@ body { font-family: Arial, sans-serif; background-color: #303641;
   top: 28%;
   left: 1%;
   display: grid;
-  grid-template-columns: repeat(6, 1fr); /* Сетка 4x4 */
+  grid-template-columns: repeat(6, 1fr); 
   gap: 15px;
   width: 95%;
   padding: 20px;
   background-color: #1a1f28;
   border-radius: 10px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  z-index: -1;
 }
 
 .room {
   position: relative;
-  background: url('image/fonroom.jpg') no-repeat center;
   background-size: cover;
   border-radius: 8px;
   overflow: hidden;
@@ -128,20 +128,22 @@ body { font-family: Arial, sans-serif; background-color: #303641;
   justify-content: flex-end;
   border: 3px solid transparent;
   height: 120px;
-  transition: border-color 0.3s, background-color 0.3s;
   text-align: center;
+  transition: border-color 0.3s, background-image 0.3s;
 }
 
 .room.active {
   border-color: green;
+  background-image: url('image/fonroom.jpg'); /* Активная комната */
 }
 
 .room.inactive {
   border-color: red;
+  background-image: url('image/fonroomoff.jpg'); /* Неактивная комната */
 }
 
 .room.private {
-  background-color: rgba(0, 0, 0, 0.6); /* Затемненный фон */
+  background-image: url('image/fonroomoff.jpg'); /* Затемненный фон для приватных комнат */
 }
 
 .room.private::before {
@@ -150,10 +152,11 @@ body { font-family: Arial, sans-serif; background-color: #303641;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 32px;
-  height: 32px;
+  width: 48px;
+  height: 48px;
   background: url('image/private.png') no-repeat center;
   background-size: cover;
+  z-index: 1;
 }
 
 .roomTime {
@@ -162,6 +165,7 @@ body { font-family: Arial, sans-serif; background-color: #303641;
   color: #e0e0e0;
   text-align: center;
   z-index: 1;
+  position: relative;
 }
 
 button.primary {
