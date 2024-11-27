@@ -68,7 +68,7 @@ export async function getRooms() {
 
 export async function deleteRoom(token, room_id) {
   const settings = await import("./settings.js")
-  const response = await fetch(`${settings.api_server}/room/?room_id=${room_id}`, {
+  const response = await fetch(`${settings.api_server}/room/?room_id=${encodeURIComponent(room_id)}`, {
     method: 'DELETE',
     headers: {
       'Authorization': `Bearer ${token}`
@@ -76,3 +76,27 @@ export async function deleteRoom(token, room_id) {
   });
   return(await response.json());
 }
+
+//MEMBERS
+export async function enterToRoom(token, room_id, password='') {
+  const settings = await import("./settings.js")
+  const response = await fetch(`${settings.api_server}/members/enter/${encodeURIComponent(room_id)}?password=${encodeURIComponent(password)}`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  });
+  return(await response.json());
+}
+
+export async function leaveRoom(token, room_id) {
+  const settings = await import("./settings.js")
+  const response = await fetch(`${settings.api_server}/members/leave/${encodeURIComponent(room_id)}`, {
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  });
+  return(await response.json());
+}
+
