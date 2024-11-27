@@ -3,6 +3,8 @@ from core.db.base.base import Base
 from sqlalchemy import ForeignKey
 from datetime import datetime
 from .attachment import Attachment
+from .message import Message
+
 from sqlalchemy.orm import (
     Mapped,
     mapped_column,
@@ -31,6 +33,10 @@ class Room(Base):
         cascade="all, delete-orphan"
     )
 
+    messages: Mapped[list["Message"]] = relationship(
+        back_populates="room",
+        cascade="all, delete-orphan"
+    )
 
 class RoomUserAssociation(Base):
     __tablename__ = "room_user_association"

@@ -8,6 +8,7 @@ from sqlalchemy.ext.asyncio import async_engine_from_config
 from alembic import context
 
 from core.room.models.attachment import Attachment
+from core.room.models.message import Message
 from core.room.models.room import Room, RoomUserAssociation
 from core.authentication.models.user import User
 

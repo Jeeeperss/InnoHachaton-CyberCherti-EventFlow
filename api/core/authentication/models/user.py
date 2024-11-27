@@ -21,6 +21,7 @@ class User(SQLAlchemyBaseUserTable[int], Base):
     )
 
     attachments: Mapped[list["Attachment"]] = relationship("Attachment", back_populates="user")
+    messages: Mapped[list["Message"]] = relationship("Message", back_populates="user")
 
     @classmethod
     def get_user_db(cls, session: AsyncSession):
