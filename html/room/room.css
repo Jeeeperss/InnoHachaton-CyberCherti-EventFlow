@@ -115,10 +115,7 @@ button.leaveprimary:hover {
 }
 
 button.sendprimary {
-  position: absolute;
-  top: 10%;
-  left: 92%;
-  width: 4%;
+  width: 25%;
   padding: 4px;
   background-color: rgb(245, 162, 38);
   color: rgb(0, 0, 0);
