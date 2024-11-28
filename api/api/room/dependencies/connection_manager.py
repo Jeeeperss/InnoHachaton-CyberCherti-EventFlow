@@ -44,7 +44,7 @@ class ConnectionManager:
         # Отправляем сообщение всем участникам комнаты
         await self.send_message_to_room(
             room_id=room_id,
-            message=f"{sender_id} : {content}"
+            message=content
         )
 
 
