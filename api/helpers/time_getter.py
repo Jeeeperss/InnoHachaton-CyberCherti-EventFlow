@@ -10,5 +10,3 @@ def parse_opening_time(opening_time: str | None, local_tz: str = "Europe/Moscow"
            .replace(tzinfo=ZoneInfo(local_tz)) \
            .astimezone(ZoneInfo("UTC")) \
            .replace(tzinfo=None)
-
-print(parse_opening_time("12:32 01-12-2024"))
