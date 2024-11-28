@@ -34,6 +34,8 @@ class ConnectionManager:
         message_data = json.loads(message) 
         content = message_data['content']
         sender_id = message_data['sender_id']
+        email = message_data['email']
+
         await add_message(
             session=session,
             room_id=room_id,
@@ -44,7 +46,7 @@ class ConnectionManager:
         # Отправляем сообщение всем участникам комнаты
         await self.send_message_to_room(
             room_id=room_id,
-            message=content
+            message=f"{email} : {content}"
         )
 
 
