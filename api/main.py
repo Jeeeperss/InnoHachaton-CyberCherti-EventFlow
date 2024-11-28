@@ -8,6 +8,8 @@ from api.room.attachment import router as router_attachment
 from api.room.members import router as router_members
 from api.room.actions import router as router_actions
 from api.room.websocket import router as router_websocket
+from api.room.image import router as router_generate
+
 
 from allowed_origins import origins
 
@@ -30,3 +32,4 @@ app.include_router(router_attachment)
 app.include_router(router_members)
 app.include_router(router_actions)
 app.include_router(router_websocket)
+app.include_router(router_generate)

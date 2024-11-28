@@ -1,50 +1,51 @@
 from fastapi import WebSocket
-import json
+from typing import Dict, List
 from core.room.tools.message_db import add_message
-
+import json
 
 class ConnectionManager:
     def __init__(self):
-        self.active_connections: dict[int, WebSocket] = {}  # Храним подключения по user_id
-    
-    async def connect(self, websocket: WebSocket, user_id: int):
-        """Принимаем подключение и сохраняем его в active_connections."""
+        self.active_rooms: Dict[int, List[WebSocket]] = {}  # Храним подключения по room_id
+
+    async def connect(self, websocket: WebSocket, room_id: int):
+        """Принимаем подключение и сохраняем его в active_rooms."""
         await websocket.accept()
-        self.active_connections[user_id] = websocket
+        if room_id not in self.active_rooms:
+            self.active_rooms[room_id] = []
+        self.active_rooms[room_id].append(websocket)
 
-    async def disconnect(self, websocket: WebSocket):
-        """При отключении удаляем пользователя из списка активных соединений."""
-        for user_id, connection in self.active_connections.items():
-            if connection == websocket:
-                del self.active_connections[user_id]
-                break
+    async def disconnect(self, websocket: WebSocket, room_id: int):
+        """Удаляем пользователя из активных соединений комнаты."""
+        if room_id in self.active_rooms:
+            if websocket in self.active_rooms[room_id]:
+                self.active_rooms[room_id].remove(websocket)
+            # Удаляем комнату, если она пуста
+            if not self.active_rooms[room_id]:
+                del self.active_rooms[room_id]
 
-    async def send_message(self, message: str, websocket: WebSocket):
-        """Отправка сообщения конкретному пользователю."""
-        await websocket.send_text(message)
+    async def send_message_to_room(self, room_id: int, message: str):
+        """Отправка сообщения всем пользователям комнаты."""
+        connections = self.active_rooms.get(room_id, [])
+        for connection in connections:
+            await connection.send_text(message)
 
-    async def send_private_message(self, session, room_id: str, user_id: int, message: str):
-        """Отправка приватного сообщения между пользователями в рамках комнаты."""
-        #message_data = json.loads(message)
-        #room_id = message_data['room_id']
-        #sender_id = message_data['sender_id']
-        #receiver_id = message_data['receiver_id']  # ID получателя
-        #content = message_data['content']
-
-        # Добавление сообщения в БД
+    async def send_private_message(self, session, room_id: int, message: str):
+        """Отправка сообщения в комнату с добавлением в БД."""
+        message_data = json.loads(message) 
+        content = message_data['content']
+        sender_id = message_data['sender_id']
         await add_message(
             session=session,
-            room_id=int(room_id),
-            sender_id=user_id,
-            content=message
+            room_id=room_id,
+            sender_id=sender_id,
+            content=content
         )
 
-        # Получаем сокет получателя по ID
-        receiver_socket = self.active_connections.get(receiver_id)
-
-        # Если сокет получателя найден, отправляем сообщение
-        if receiver_socket:
-            await receiver_socket.send_text(f"Message from {sender_id}: {content}")
+        # Отправляем сообщение всем участникам комнаты
+        await self.send_message_to_room(
+            room_id=room_id,
+            message=f"{sender_id} : {content}"
+        )
 
 
 # Инициализация менеджера
