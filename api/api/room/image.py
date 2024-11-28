@@ -17,5 +17,5 @@ async def generate_img(
 ):
     messages = await get_messages_in_room(session=session, room_id=room_id, limit = 10)
     content = " ".join([message.content for message in messages])
-    await generate(content)
+    await generate(content, room_id)
     return {"message": f"Изображение сгенерировано на основе текста {content}"}

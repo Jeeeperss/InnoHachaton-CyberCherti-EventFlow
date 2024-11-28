@@ -52,13 +52,13 @@ class Text2ImageAPI:
             file.write(image_data)
         print(f'Image saved as {filename}')
 
-async def generate(prompt: str):
+async def generate(prompt: str, room_id: int):
     api = Text2ImageAPI('https://api-key.fusionbrain.ai/', 'API', 'SECRET')
     model_id = api.get_model()
     uuid = api.generate(prompt, model_id)
     images_base64 = api.check_generation(uuid)
     if images_base64:
         for idx, img_base64 in enumerate(images_base64):
-            api.save_image(img_base64, f'images/image.png')
+            api.save_image(img_base64, f'images/image_room_{room_id}.png')
     else:
         print("Image generation failed.")
