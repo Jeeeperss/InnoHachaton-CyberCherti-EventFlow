@@ -52,4 +52,19 @@ async function deleteRoom() {
   window.location.href = '../list/roomList.html'
 }
 
+function showPasswordWindow() {
+  createRoomWindow.style.display = "flex"
+}
+
+function hidePasswordWindow() {
+  createRoomWindow.style.display = "none"
+}
+
+PasswordForm.addEventListener('submit', function(event){
+  event.preventDefault();
+  //console.log(PasswordForm.inputPassword.value, PasswordForm.inputTime.value, PasswordForm.inputDate.value)
+  //createRoom(PasswordForm.inputPassword.value, Date)
+})
+
+
 enterToRoom()

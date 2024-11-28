@@ -188,6 +188,47 @@ button.primary:hover {
   background-color: rgb(179, 107, 0)
 }
 
+button.w1primary {
+  position: absolute;
+  top: 57%;
+  left: 25%;
+  width: 50%;
+  padding: 10px;
+  margin-top: 10px;
+  background-color: rgb(233, 142, 6);
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  z-index: 4;
+}
+
+button.w1primary:hover {
+  background-color: rgb(179, 107, 0)
+}
+
+button.w2primary {
+  position: absolute;
+  top: 80%;
+  left: 30%;
+  width: 40%;
+  padding: 10px;
+  background-color: rgb(233, 142, 6);
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  z-index: 4;
+}
+
+button.w2primary:hover {
+  background-color: rgb(179, 107, 0)
+}
+
 .createRoomWindow{
   position: absolute;
   top: 50%;

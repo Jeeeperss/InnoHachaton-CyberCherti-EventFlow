@@ -10,8 +10,9 @@
 </head>
 <body>
   <div class="header">
-    <button onclick="leaveRoom()">Leave</button>
-    <button onclick="deleteRoom()">Delete Room</button>
+    <br>
+    <button class = "leaveprimary" onclick="leaveRoom()">Leave</button>
+    <button class = "primary" onclick="deleteRoom()">Delete Room</button>
   </div>
   <div class="main-container">
     <div class="generate-image">
@@ -20,6 +21,14 @@
       <div id="messages"></div>
       <input type="text" id="messageInput" placeholder="Type your message here..." />
       <button id="sendButton">Send</button>
+    </div>
+    <div class="PasswordWindow" id="PasswordWindow" style="display: none">
+      <form align="center" id="PasswordForm">
+        <h2 align="center">Password Check</h2>
+        <input type="password" id="inputPassword" align="center"></input>
+        <button type="submit">Inter</button>
+        <button type="button" onclick="hidePasswordWindow()">Back</button>
+      </form>
     </div>
   <div>
 </body>
