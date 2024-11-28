@@ -75,6 +75,14 @@ export async function deleteRoom(token, room_id) {
 }
 
 //MEMBERS
+export async function getMembers(room_id) {
+  const settings = await import("./settings.js")
+  const response = await fetch(`${settings.api_server}/members/${encodeURIComponent(room_id)}`, {
+    method: 'GET' 
+  });
+  return(await response.json());
+}
+
 export async function enterToRoom(token, room_id, password='') {
   const settings = await import("./settings.js")
   const response = await fetch(`${settings.api_server}/members/enter/${encodeURIComponent(room_id)}?password=${encodeURIComponent(password)}`, {
@@ -90,6 +98,18 @@ export async function leaveRoom(token, room_id) {
   const settings = await import("./settings.js")
   const response = await fetch(`${settings.api_server}/members/leave/${encodeURIComponent(room_id)}`, {
     method: 'DELETE',
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  });
+  return(await response.json());
+}
+
+//USERS
+export async function getMe(token) {
+  const settings = await import("./settings.js")
+  const response = await fetch(`${settings.api_server}/users/me`, {
+    method: 'GET',
     headers: {
       'Authorization': `Bearer ${token}`
     }
