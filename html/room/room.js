@@ -53,11 +53,7 @@ async function deleteRoom() {
 }
 
 function showPasswordWindow() {
-  createRoomWindow.style.display = "flex"
-}
-
-function hidePasswordWindow() {
-  createRoomWindow.style.display = "none"
+  PasswordWindow.style.display = "flex"
 }
 
 PasswordForm.addEventListener('submit', function(event){

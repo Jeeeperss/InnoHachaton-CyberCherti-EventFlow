@@ -76,10 +76,10 @@ body{
 
 button.primary {
   position: absolute;
-  top: 2%;
-  left: 89%;
+  top: 0.5%;
+  left: 87%;
   width: 10%;
-  padding: 10px;
+  padding: 7px;
   background-color: rgb(236, 6, 6);
   color: rgb(0, 0, 0);
   border: none;
@@ -96,10 +96,10 @@ button.primary:hover {
 
 button.leaveprimary {
   position: absolute;
-  top: 2%;
-  left: 2%;
+  top: 0.5%;
+  left: 3%;
   width: 10%;
-  padding: 10px;
+  padding: 6px;
   background-color: rgb(236, 6, 6);
   color: rgb(0, 0, 0);
   border: none;
@@ -113,3 +113,45 @@ button.leaveprimary {
 button.leaveprimary:hover {
   background-color: rgb(158, 6, 6)
 }
+
+button.sendprimary {
+  position: absolute;
+  top: 10%;
+  left: 92%;
+  width: 4%;
+  padding: 4px;
+  background-color: rgb(245, 162, 38);
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 5px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  z-index: 2;
+}
+
+button.sendprimary:hover {
+  background-color: rgb(226, 129, 18)
+}
+
+button.w1primary {
+  position: absolute;
+  top: 55%;
+  left: 25%;
+  width: 50%;
+  padding: 10px;
+  margin-top: 10px;
+  background-color: rgb(233, 142, 6);
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  z-index: 4;
+}
+
+button.w1primary:hover {
+  background-color: rgb(179, 107, 0)
+}
+
