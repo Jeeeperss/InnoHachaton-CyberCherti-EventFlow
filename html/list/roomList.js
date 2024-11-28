@@ -1,4 +1,6 @@
 const roomList = document.getElementById('roomList')
+const createRoomForm = document.getElementById('createRoomForm')
+const createRoomWindow = document.getElementById('createRoomWindow')
 
 document.querySelector('.dropdown-toggle').addEventListener('click', function () {
   const dropdown = document.querySelector('.dropdown');
@@ -64,12 +66,31 @@ function goToRoom(room_id){
   window.location.href = `../room/room.html?id=${room_id}`
 }
 
-document.getElementById('roomList').addEventListener('click', function(event){
+roomList.addEventListener('click', function(event){
   console.log(event.target.id)
   if(event.target.id.slice(0,5)=='room_'){
     let id = Number(event.target.id.slice(5))
     goToRoom(id)
   }
+})
+
+
+function showCreateRoomWindow() {
+  createRoomWindow.style.display = "flex"
+}
+
+function hideCreateRoomWindow() {
+  createRoomWindow.style.display = "none"
+}
+
+createRoomForm.addEventListener('submit', function(event){
+  event.preventDefault();
+  //console.log(createRoomForm.inputPassword.value, createRoomForm.inputTime.value, createRoomForm.inputDate.value)
+  let Date = ''
+  if(createRoomForm.inputTime.value && createRoomForm.inputDate.value){
+    Date = `${createRoomForm.inputTime.value} ${createRoomForm.inputDate.value}`;
+  }
+  createRoom(createRoomForm.inputPassword.value, Date)
 })
 
 updateRooms()

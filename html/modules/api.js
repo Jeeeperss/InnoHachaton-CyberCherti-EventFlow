@@ -44,16 +44,13 @@ export function getToken(){
 //ROOM
 export async function createRoom(token, password, opening_time) {
   const settings = await import("./settings.js")
-  const response = await fetch(`${settings.api_server}/room`, {
+  const response = await fetch(`${settings.api_server}/room/?password=${encodeURIComponent(password)}&${opening_time ? `opening_time=${encodeURIComponent(opening_time)}`:''}`,
+  {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     },
-    body: JSON.stringify({
-      password: password,
-      opening_time: opening_time
-    })
   });
   return(await response.json());
 }

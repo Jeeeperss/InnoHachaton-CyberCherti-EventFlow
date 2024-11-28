@@ -20,7 +20,20 @@
         </div>
     </div>
     <br>
-    <button class="primary" onclick="createRoom()">New Room</button>
-    <div id="roomList" class="roomList"></div> 
+    <button class="primary" onclick="showCreateRoomWindow()">New Room</button>
+    <div id="roomList" class="roomList"></div>
+
+    <div class="createRoomWindow" id="createRoomWindow" style="display: none">
+      <form align="center" id="createRoomForm">
+        <h2 align="center">Creating Room</h2>
+        <input type="password" id="inputPassword" align="center"></input>
+        <div style="display: inline;" align="center">
+          <input type="time" id="inputTime">
+          <input type="date" id="inputDate">
+        </div>
+        <button type="submit">New Room</button>
+        <button type="button" onclick="hideCreateRoomWindow()">Back</button>
+      </form>
+    </div>
 </body>
 </html>
