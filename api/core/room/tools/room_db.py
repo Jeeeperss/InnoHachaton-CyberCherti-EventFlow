@@ -57,28 +57,61 @@ async def create_room(
         raise e
 
 
+from datetime import datetime
+from sqlalchemy import update
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.exc import SQLAlchemyError
+
 async def get_all_rooms(
     session: AsyncSession
 ) -> list[RoomBase]:
     """
-    Получает список всех комнат с указанием их приватности.
+    Получает список всех комнат с указанием их приватности и проверяет время открытия.
+    При необходимости обновляет статус активности комнаты.
     
     :param session: Асинхронная сессия базы данных.
     :return: Список объектов комнат с информацией о приватности.
     :raises SQLAlchemyError: Ошибки при работе с базой данных.
     """
-    result = await session.execute(select(Room))
-    rooms = result.scalars().all()
+    try:
+        # Получаем все комнаты из базы данных
+        result = await session.execute(select(Room))
+        rooms = result.scalars().all()
 
-    return [
-        RoomBase(
-            id=room.id,
-            is_active=room.is_active,
-            opening_time=room.opening_time,
-            private=bool(room.password)  # Если есть пароль, комната приватная
-        )
-        for room in rooms
-    ]
+        # Текущее время
+        now = datetime.utcnow()
+
+        # Список для обновления
+        rooms_to_activate = []
+
+        for room in rooms:
+            # Если время открытия наступило и комната не активна
+            if not room.is_active and room.opening_time <= now:
+                rooms_to_activate.append(room.id)
+
+        # Обновляем статус активности в базе данных, если есть комнаты для активации
+        if rooms_to_activate:
+            await session.execute(
+                update(Room)
+                .where(Room.id.in_(rooms_to_activate))
+                .values(is_active=True)
+            )
+            await session.commit()
+
+        # Формируем список объектов для возврата
+        return [
+            RoomBase(
+                id=room.id,
+                is_active=room.is_active or room.id in rooms_to_activate,  # Учитываем локальные изменения
+                opening_time=room.opening_time,
+                private=bool(room.password)  # Если есть пароль, комната приватная
+            )
+            for room in rooms
+        ]
+
+    except SQLAlchemyError as e:
+        await session.rollback()
+        raise RuntimeError(f"Ошибка при получении комнат: {e}")
 
 
 async def delete_room(

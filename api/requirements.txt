@@ -6,3 +6,4 @@ asyncpg==0.30.0
 alembic==1.14.0
 pydantic-settings==2.6.1
 bcrypt==4.2.1 
+requests==2.32.3
