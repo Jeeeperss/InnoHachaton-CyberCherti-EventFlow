@@ -131,7 +131,8 @@ cython_debug/
 
 .idea/
 
-
+#image dir
+images/
 # Work directory
 uploads
 

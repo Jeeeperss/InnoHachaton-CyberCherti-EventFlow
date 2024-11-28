@@ -36,15 +36,17 @@ class Text2ImageAPI:
         data = response.json()
         return data['uuid']
 
-    def check_generation(self, request_id, attempts=10, delay=10):
-        while attempts > 0:
-            response = requests.get(self.URL + 'key/api/v1/text2image/status/' + request_id, headers=self.AUTH_HEADERS)
+    def check_generation(self, request_id, max_attempts=10, initial_delay=2):
+        delay = initial_delay
+        for attempt in range(max_attempts):
+            response = requests.get(self.URL + f'key/api/v1/text2image/status/{request_id}', headers=self.AUTH_HEADERS)
             data = response.json()
-            if data['status'] == 'DONE':
+            if data.get('status') == 'DONE':
                 return data['images']
-
-            attempts -= 1
             time.sleep(delay)
+            delay = min(delay * 2, 10)  # Увеличиваем задержку, но не более 10 секунд
+        raise TimeoutError("Image generation timed out")
+
 
     def save_image(self, image_base64, filename):
         image_data = base64.b64decode(image_base64)
@@ -53,12 +55,12 @@ class Text2ImageAPI:
         print(f'Image saved as {filename}')
 
 async def generate(prompt: str, room_id: int):
-    api = Text2ImageAPI('https://api-key.fusionbrain.ai/', 'API', 'SECRET')
+    api = Text2ImageAPI('https://api-key.fusionbrain.ai/', 'api', 'secret')
     model_id = api.get_model()
     uuid = api.generate(prompt, model_id)
     images_base64 = api.check_generation(uuid)
     if images_base64:
         for idx, img_base64 in enumerate(images_base64):
-            api.save_image(img_base64, f'images/image_room_{room_id}.png')
+            api.save_image(img_base64, f'../html/images/image_room_{room_id}.png')
     else:
         print("Image generation failed.")
