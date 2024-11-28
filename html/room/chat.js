@@ -12,9 +12,7 @@ async function startWebSocket() {
   const sendButton = document.getElementById('sendButton');
 
   // Подключение к WebSocket
-  console.log(wsUrl)
   const socket = new WebSocket(wsUrl);
-  console.log(socket)
 
   // Открытие соединения
   socket.onopen = () => {

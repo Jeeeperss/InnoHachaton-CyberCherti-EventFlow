@@ -1,9 +1,24 @@
 body{
-  margin: 0
+  font-family: Arial, sans-serif;
+  background-color: #303641;
+	background-image: 
+		linear-gradient(135deg, rgba(0,0,0, 0.2) 0%, rgba(0,0,0, 0.1) 25%, rgba(0,0,0, 0.2) 50%, rgba(0,0,0, 0.1) 75%, rgba(0,0,0, 0.2) 100%), 
+		linear-gradient(90deg, #192129, #303641, #484e57);
+	background-size: 8px 8px, 100%;
+  overflow: hidden;
+  margin-top: 0
+
 }
 
 .header{
   height:5vh;
+  width: 100%;
+  bottom: 0; /* Перемещаем трапецию вниз страницы */
+  top: 0%;
+  background: #1a1f28; 
+  border-bottom-left-radius: 60px; 
+  border-bottom-right-radius: 60px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
 }
 
 .main-container{
@@ -18,10 +33,20 @@ body{
 
 .chat{
   width:20%;
-  height: 100%;
+  height: 90%;
   background-color: #424242;
-  border: 1px solid #000;
-  display: flex; 
+  margin-top: 1%;
+  /*display: flex; 
   align-items: center;
-  justify-content: center;
+  justify-content: center;*/
+
+  padding: 20px;
+  background-color: #1a1f28;
+  color: white;
+  border: 3px solid;
+  border-color: #f90;
+  border-radius: 10px;
+  font-weight: 900;
+  transition: background-color 0.3s ease; 
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
 }
