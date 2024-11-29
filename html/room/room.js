@@ -16,7 +16,10 @@ async function enterToRoom() {
       const me = await api.getMe(token)//проверка необходимости входа
       const users = await api.getMembers(id)
       for(let i = 0; i < users.length; i++){
-        if(users[i].email === me.email){ return }
+        if(users[i].email === me.email){ 
+          startWebSocket()
+          return 
+        }
       }
 
       let password = ''//проверка пароля
@@ -24,6 +27,7 @@ async function enterToRoom() {
         password = prompt("Password:")
       }
       try{
+        startWebSocket()
         await api.enterToRoom(token, id, password)
         return
       } catch {

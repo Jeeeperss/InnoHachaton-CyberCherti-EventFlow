@@ -117,3 +117,11 @@ export async function getMe(token) {
   return(await response.json());
 }
 
+//IMAGE
+export async function generateImage(room_id) {
+  const settings = await import("./settings.js")
+  const response = await fetch(`${settings.api_server}/image/generate?room_id=${room_id}`, {
+    method: 'GET'
+  });
+  return(await response.json());
+}

@@ -51,8 +51,20 @@ async function startWebSocket() {
         // Сериализация объекта в JSON
         socket.send(JSON.stringify(payload));
         messageInput.value = ''; // Очистка поля ввода
+        
+        const response = generateImage(roomId) 
+        console.log(response)
     }
   });
 }
 
-startWebSocket()
+async function generateImage(roomId) {
+  let response
+  try {
+    const api = await import("../modules/api.js")
+    response = await api.generateImage(roomId)
+  } catch (e) {
+    response = `Image Generate Error: ${e}`
+  }
+  return response
+}
