@@ -6,7 +6,7 @@ body{
 		linear-gradient(90deg, #192129, #303641, #484e57);
 	background-size: 8px 8px, 100%;
   overflow: hidden;
-  margin-top: 0
+  margin-top: 0;
 
 }
 
@@ -26,9 +26,25 @@ body{
   height:95vh;
 }
 
+.relativeCenter{
+  position: relative;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
 .generate-image{
   width: 80%;
   height:100%;
+}
+
+.image{
+  height: 90%
+}
+
+#generateImage{
+  background-color: #f90;
+  border-radius: 10px;
 }
 
 .chat{
@@ -36,9 +52,6 @@ body{
   height: 90%;
   background-color: #424242;
   margin-top: 1%;
-  /*display: flex; 
-  align-items: center;
-  justify-content: center;*/
 
   padding: 20px;
   background-color: #1a1f28;

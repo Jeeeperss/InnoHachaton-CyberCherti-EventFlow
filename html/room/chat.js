@@ -52,8 +52,7 @@ async function startWebSocket() {
         socket.send(JSON.stringify(payload));
         messageInput.value = ''; // Очистка поля ввода
         
-        const response = generateImage(roomId) 
-        console.log(response)
+        generateImage(roomId)         
     }
   });
 }
@@ -66,5 +65,5 @@ async function generateImage(roomId) {
   } catch (e) {
     response = `Image Generate Error: ${e}`
   }
-  return response
+  console.log(response)
 }

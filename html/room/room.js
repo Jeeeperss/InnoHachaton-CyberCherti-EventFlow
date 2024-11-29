@@ -1,7 +1,10 @@
+const updateInterval = 5
+
+const params = new URLSearchParams(window.location.search);
+const id = Number(params.get('id'));
+
 async function enterToRoom() {
   const api = await import("../modules/api.js")
-  const params = new URLSearchParams(window.location.search);
-  const id = Number(params.get('id'));
   const token = await api.getToken()
   const rooms = await api.getRooms()
 
@@ -40,8 +43,6 @@ async function enterToRoom() {
 
 async function leaveRoom() {
   const api = await import("../modules/api.js")
-  const params = new URLSearchParams(window.location.search);
-  const id = Number(params.get('id'));
   const token = await api.getToken()
   await api.leaveRoom(token, id)
   window.location.href = '../list/roomList.html'
@@ -49,8 +50,6 @@ async function leaveRoom() {
 
 async function deleteRoom() {
   const api = await import("../modules/api.js")
-  const params = new URLSearchParams(window.location.search);
-  const id = Number(params.get('id'));
   const token = await api.getToken()
   await api.deleteRoom(token, id)
   window.location.href = '../list/roomList.html'
@@ -66,5 +65,20 @@ PasswordForm.addEventListener('submit', function(event){
   //createRoom(PasswordForm.inputPassword.value, Date)
 })
 
+const image = document.getElementById('generateImage');
+
+const intervalId = setInterval(
+  function(){
+    console.log(1)
+    fetch(`/images/image_room_${id}.png?t=${new Date().getTime()}`)
+        .then(response => response.blob())
+        .then(blob => {
+            const url = URL.createObjectURL(blob);
+            image.src = url; // Устанавливаем новый источник для изображения
+        })
+        .catch(err => console.error('Error fetching image:', err));
+  }, 
+  updateInterval * 1000
+);
 
 enterToRoom()
