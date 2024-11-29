@@ -1,9 +1,13 @@
 const updateInterval = 5
 
+const image = document.getElementById('generateImage');
+const PasswordWindow = document.getElementById('PasswordWindow');
+const PasswordForm = document.getElementById('PasswordForm');
+
 const params = new URLSearchParams(window.location.search);
 const id = Number(params.get('id'));
 
-async function enterToRoom() {
+async function start() {
   const api = await import("../modules/api.js")
   const token = await api.getToken()
   const rooms = await api.getRooms()
@@ -20,25 +24,48 @@ async function enterToRoom() {
       const users = await api.getMembers(id)
       for(let i = 0; i < users.length; i++){
         if(users[i].email === me.email){ 
+          setInterval(updateIteration, updateInterval * 1000);
           startWebSocket()
           return 
         }
       }
 
-      let password = ''//проверка пароля
+      //проверка пароля
       if(rooms[i].private){
-        password = prompt("Password:")
-      }
-      try{
-        startWebSocket()
-        await api.enterToRoom(token, id, password)
-        return
-      } catch {
-        alert("Error entering the room")
-        window.location.href = '../list/roomList.html'
-      }
+        requestPassword()
+      } else enterToRoom('')
+          
     }
   }
+}
+
+function requestPassword(){
+  PasswordWindow.style.display = "flex"
+  PasswordForm.addEventListener('submit', function(event){
+    event.preventDefault();
+    PasswordWindow.style.display = "none"
+    enterToRoom(PasswordForm.inputPassword.value)
+  })
+}
+
+
+async function enterToRoom(password) {
+  try{
+    const api = await import("../modules/api.js")
+    const token = await api.getToken()
+    await api.enterToRoom(token, id, password)
+    start()
+    return
+  } catch {
+    alert("Error entering the room")
+    window.location.href = '../list/roomList.html'
+    return
+  }
+}
+
+async function startWS() {
+  setInterval(updateIteration, updateInterval * 1000);
+  startWebSocket()
 }
 
 async function leaveRoom() {
@@ -55,30 +82,14 @@ async function deleteRoom() {
   window.location.href = '../list/roomList.html'
 }
 
-function showPasswordWindow() {
-  PasswordWindow.style.display = "flex"
+function updateIteration(){
+  fetch(`/images/image_room_${id}.png?t=${new Date().getTime()}`)
+      .then(response => response.blob())
+      .then(blob => {
+          const url = URL.createObjectURL(blob);
+          image.src = url; // Устанавливаем новый источник для изображения
+      })
+      .catch(err => console.error('Error fetching image:', err));
 }
 
-PasswordForm.addEventListener('submit', function(event){
-  event.preventDefault();
-  //console.log(PasswordForm.inputPassword.value, PasswordForm.inputTime.value, PasswordForm.inputDate.value)
-  //createRoom(PasswordForm.inputPassword.value, Date)
-})
-
-const image = document.getElementById('generateImage');
-
-const intervalId = setInterval(
-  function(){
-    console.log(1)
-    fetch(`/images/image_room_${id}.png?t=${new Date().getTime()}`)
-        .then(response => response.blob())
-        .then(blob => {
-            const url = URL.createObjectURL(blob);
-            image.src = url; // Устанавливаем новый источник для изображения
-        })
-        .catch(err => console.error('Error fetching image:', err));
-  }, 
-  updateInterval * 1000
-);
-
-enterToRoom()
+start()

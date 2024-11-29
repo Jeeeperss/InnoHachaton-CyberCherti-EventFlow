@@ -33,6 +33,12 @@ body{
   transform: translateX(-50%) translateY(-50%);
 }
 
+.relativeCenterX{
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 .generate-image{
   width: 80%;
   height:100%;
