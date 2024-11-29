@@ -83,6 +83,7 @@ async function deleteRoom() {
 }
 
 function updateIteration(){
+  image.style.display = "flex"
   fetch(`/images/image_room_${id}.png?t=${new Date().getTime()}`)
       .then(response => response.blob())
       .then(blob => {

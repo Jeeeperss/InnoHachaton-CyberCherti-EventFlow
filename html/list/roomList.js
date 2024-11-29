@@ -93,4 +93,13 @@ createRoomForm.addEventListener('submit', function(event){
   createRoom(createRoomForm.inputPassword.value, Date)
 })
 
+async function setUserEmail() {
+  const api = await import("../modules/api.js")
+  const token = await api.getToken()
+  const me = await api.getMe(token)
+
+  document.getElementById('dropdown-toggle').innerText = me.email
+}
+
+setUserEmail()
 updateRooms()

@@ -34,7 +34,7 @@ registrationForm.addEventListener('submit', async function(event) {
     const result = api.register(registrationForm.email.value, registrationForm.password.value)
 
     if(result.detail == undefined){
-      alert(`Registration Successfully\n${result.email}`);
+      alert(`Registration Successfully`);
       toLogin();
     } else
     if (result.detail === 'REGISTER_USER_ALREADY_EXISTS'){

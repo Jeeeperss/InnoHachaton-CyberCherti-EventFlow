@@ -190,9 +190,9 @@ button.primary:hover {
 
 button.w1primary {
   position: absolute;
-  top: 57%;
-  left: 25%;
-  width: 50%;
+  bottom: 5%;
+  right: 5%;
+  width: 40%;
   padding: 10px;
   margin-top: 10px;
   background-color: rgb(233, 142, 6);
@@ -211,8 +211,8 @@ button.w1primary:hover {
 
 button.w2primary {
   position: absolute;
-  top: 80%;
-  left: 30%;
+  bottom: 5%;
+  left: 5%;
   width: 40%;
   padding: 10px;
   background-color: rgb(233, 142, 6);
@@ -249,4 +249,10 @@ button.w2primary:hover {
   transition: background-color 0.3s ease; 
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
   z-index: 1;
+}
+
+.relativeCenterX{
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 }

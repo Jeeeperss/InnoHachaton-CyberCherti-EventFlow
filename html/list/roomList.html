@@ -13,7 +13,7 @@
         <span class="vibe">Vibe</span><span class="hub">Hub</span>
     </h1>
     <div class="dropdown" style="--dropdown-top: 40%;">
-        <button class="dropdown-toggle">user@example.com</button>
+        <button class="dropdown-toggle" id="dropdown-toggle">user@example.com</button>
         <div class="dropdown-menu">
             <button class="dropdown-item">Profile</button>
             <button class="dropdown-item" onclick="logout()">Logout</button>
@@ -24,16 +24,17 @@
     <div id="roomList" class="roomList"></div>
 
     <div class="createRoomWindow" id="createRoomWindow" style="display: none">
-      <form align="center" id="createRoomForm">
+      <form class="relativeCenterX" id="createRoomForm">
         <h2 align="center">Creating Room</h2>
-        <input type="password" id="inputPassword" align="center"></input>
-        <div style="display: inline;" align="center">
+        <input type="password" class="relativeCenterX" id="inputPassword" placeholder="Password(empty to public)"></input>
+        <br><br>
+        <div style="display: inline;">
           <input type="time" id="inputTime">
           <input type="date" id="inputDate">
         </div>
-        <button class="w1primary" type="submit">New Room</button>
-        <button class="w2primary" type="button" onclick="hideCreateRoomWindow()">Back</button>
-      </form>
+        <button class="w1primary" type="submit" class="relativeCenterX">New Room</button>
+        <button class="w2primary" type="button" class="relativeCenterX" onclick="hideCreateRoomWindow()">Back</button>
+    </form>
     </div>
 </body>
 </html>
